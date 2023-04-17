@@ -13,8 +13,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $categories = QuestionCategory::all();
-        return view('questions', ['categories' => $categories ]);
+        
     }
 
     /**
@@ -22,7 +21,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        $categories = QuestionCategory::all();
+        return view('questions_1', ['categories' => $categories ]);
     }
 
     /**
