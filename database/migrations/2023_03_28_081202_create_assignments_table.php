@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
-            $table->string('problem');
+            $table->string('problem')->nullable();
             $table->string('description');
-            $table->boolean('draft');
-            $table->foreignId('company_id')->constrained()->restrictOnDelete();
+            $table->boolean('draft')->nullable();
+            $table->boolean('graduate')->default(false);
+            $table->uuid('edit_key')->nullable();
+            $table->foreignId('company_id')->nullable()->constrained()->restrictOnDelete();
             $table->timestamps();
             $table->foreignId('users_id')->constrained()->restrictOnDelete();
-            $table->unsignedBigInteger('users2_id');
+            $table->unsignedBigInteger('users2_id')->nullable();
             $table->foreign('users2_id')->references('id')->on('users');
         });
     }

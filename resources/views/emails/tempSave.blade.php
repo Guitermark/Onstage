@@ -1,0 +1,1 @@
+url<a href="{{route('questions.edit', ['question'=> $assignment->id, 'key'=> (string) $assignment->edit_key])}}">{{route('questions.edit', ['question'=> $assignment->id, 'key'=> (string) $assignment->edit_key])}}</a>

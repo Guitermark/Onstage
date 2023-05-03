@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
+use App\Models\Assignment;
 use App\Models\Question;
 use App\Models\QuestionCategory;
 use Illuminate\Http\Request;
@@ -21,15 +23,8 @@ class QuestionController extends Controller
      */
     public function create(Request $request)
     {
-        if(!$request->query('graduate'))
-        {
-            $categories = QuestionCategory::all();
-            return view('ADSD1', ['categories' => $categories ]);
-        }else
-        {
-            $categories = QuestionCategory::all();
-            return view('ADSD2', ['categories' => $categories ]);
-        }
+            $categories = QuestionCategory::with('questions')->get();
+            return view('ADSD1', ['categories' => $categories, 'graduate' => $request->input('graduate') ]);
     }
     
     /**
@@ -45,15 +40,31 @@ class QuestionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $ass = Assignment::with('student1')->with('answers')->find($id);
+        // dd($ass);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
-        //
+        $categories = QuestionCategory::with('questions')->get();
+        $ass = Assignment::with('student1')->with('student2')->with('answers')->where('edit_key', '=', $request->query('key'))->find($id);
+        $answers=[];
+        foreach($ass->answers as $answer){
+            $answers[$answer->question_id] = $answer;
+        }
+        // dd(explode('|', $ass->student1->modules));
+        // dd($answers);
+        if($ass->draft)
+        {
+            return view('ADSD1', ['categories' => $categories, 'assignment' => $ass, 'answers' => $answers, 'graduate' => $ass->graduate ]);
+
+        }
+        else{
+            return redirect()->action([QuestionController::class, 'show'], ['question' => $id]);
+        }
     }
 
     /**
