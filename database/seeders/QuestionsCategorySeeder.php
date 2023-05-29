@@ -22,8 +22,10 @@ class QuestionsCategorySeeder extends Seeder
             'description' => 'Taken en activiteiten'
         ], [
             'description' => 'Verwachtingen binnen de comakership'
-        ], [
-            'description' => 'Competentie verantwoording'
-        ]]);
+        ], ]);
+        DB::table('question_categories')->insert([
+            'description' => 'Competentie verantwoording',
+            'custom_input' => 'competentie'
+        ]);
     }
 }

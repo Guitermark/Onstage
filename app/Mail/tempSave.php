@@ -17,7 +17,7 @@ class tempSave extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public Assignment $assignment)
+    public function __construct(public Assignment $assignment, public bool $redo = false)
     {
         
     }

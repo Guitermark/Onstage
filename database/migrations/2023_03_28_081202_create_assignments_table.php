@@ -14,10 +14,15 @@ return new class extends Migration
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
             $table->string('problem')->nullable();
-            $table->string('description');
+            $table->integer('analyse_level')->nullable();
+            $table->integer('advise_level')->nullable();
+            $table->integer('design_level')->nullable();
+            $table->integer('build_level')->nullable();
+            $table->integer('manage_level')->nullable();
             $table->boolean('draft')->nullable();
             $table->boolean('graduate')->default(false);
             $table->uuid('edit_key')->nullable();
+            $table->uuid('grade_key')->nullable();
             $table->foreignId('company_id')->nullable()->constrained()->restrictOnDelete();
             $table->timestamps();
             $table->foreignId('users_id')->constrained()->restrictOnDelete();

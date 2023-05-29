@@ -101,6 +101,21 @@ class QuestionsSeeder extends Seeder
         ],  [
             'description' => 'Waar zie je tegenop? Wat zijn je sterke punten? Wat zijn punten waar je extra begeleiding bij nodig hebt?',
             'question_category_id' => '4'
+        ],  [
+            'description' => 'Onderbouwing om competentie Analyseren aan te tonen',
+            'question_category_id' => '5'
+        ],  [
+            'description' => 'Onderbouwing om competentie Adviseren aan te tonen',
+            'question_category_id' => '5'
+        ],  [
+            'description' => 'Onderbouwing om competentie Ontwerpen aan te tonen',
+            'question_category_id' => '5'
+        ],  [
+            'description' => 'Onderbouwing om competentie Realiseren aan te tonen',
+            'question_category_id' => '5'
+        ],  [
+            'description' => 'Onderbouwing om competentie Manage & Controle aan te tonen',
+            'question_category_id' => '5'
         ]
         ]);
         // Question::factory(10)->create();
