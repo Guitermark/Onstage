@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
             $table->string('problem')->nullable();
+            $table->string('feedback')->nullable();
             $table->integer('analyse_level')->nullable();
             $table->integer('advise_level')->nullable();
             $table->integer('design_level')->nullable();
