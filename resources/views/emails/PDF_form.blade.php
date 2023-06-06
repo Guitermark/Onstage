@@ -41,10 +41,6 @@
         border-bottom: 2px solid #009879;
       }
       </style>
-    <p> Hier is je pDf</p>
-
-    <p> Thanks & Regards </p>
-
 
     <table class="styled-table">
         <thead>

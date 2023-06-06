@@ -84,10 +84,10 @@
                   <label for="modules">Welke module's staan nog open?</label>
                   <br>
                   <div class="form-check">
-                    <input data-required="true" class="form-check-input" type="checkbox" id="Project Software Development"
-                      name="student_1[modules][project software development]" value="project software development"
-                      @if(isset($assignment) && in_array("project software development",explode('|',
-                      $assignment->student1->modules))) checked @endif>
+                    <input data-required="true" class="form-check-input" type="checkbox"
+                      id="Project Software Development" name="student_1[modules][project software development]"
+                      value="project software development" @if(isset($assignment) && in_array("project software
+                      development",explode('|', $assignment->student1->modules))) checked @endif>
                     <label class="form-check-label">
                       Project Software Development
                     </label>
@@ -130,10 +130,10 @@
                     <label class="form-check-label">Software Development 1</label>
                   </div>
                   <div class="form-check">
-                    <input data-required="true" class="form-check-input" type="checkbox" id="Project ADSD Laboratorium 1"
-                      name="student_1[modules][Project ADSD Laboratorium 1]" value="Project ADSD Laboratorium 1"
-                      @if(isset($assignment) && in_array("Project ADSD Laboratorium 1",explode('|',
-                      $assignment->student1->modules))) checked @endif>
+                    <input data-required="true" class="form-check-input" type="checkbox"
+                      id="Project ADSD Laboratorium 1" name="student_1[modules][Project ADSD Laboratorium 1]"
+                      value="Project ADSD Laboratorium 1" @if(isset($assignment) && in_array("Project ADSD Laboratorium
+                      1",explode('|', $assignment->student1->modules))) checked @endif>
                     <label class="form-check-label">Project ADSD Laboratorium 1</label>
                   </div>
                   <div class="form-check">
@@ -157,10 +157,10 @@
                     <label class="form-check-label">Software Quality</label>
                   </div>
                   <div class="form-check">
-                    <input data-required="true" class="form-check-input" type="checkbox" id="Project ADSD Laboratorium 2"
-                      name="student_1[modules][Project ADSD Laboratorium 2]" value="Project ADSD Laboratorium 2"
-                      @if(isset($assignment) && in_array("Project ADSD Laboratorium 2",explode('|',
-                      $assignment->student1->modules))) checked @endif>
+                    <input data-required="true" class="form-check-input" type="checkbox"
+                      id="Project ADSD Laboratorium 2" name="student_1[modules][Project ADSD Laboratorium 2]"
+                      value="Project ADSD Laboratorium 2" @if(isset($assignment) && in_array("Project ADSD Laboratorium
+                      2",explode('|', $assignment->student1->modules))) checked @endif>
                     <label class="form-check-label">Project ADSD Laboratorium 2</label>
                   </div>
                   @if($graduate)
@@ -194,205 +194,225 @@
                   </div>
                   <br>
                   <label for="previous_comakership">
-                    Gelieve aan te geven welke Comakership-project je reeds hebt uitgevoerd en bij welke organisatie. Beschrijf kort de inhoud van het CoMakership</label>
-                  <input type="text" class="form-control" name="student_1[previous_comakership]" id="previous_comakership" placeholder="Comakership"
-                    @isset($assignment) value="{{$assignment->student1->previous_comakership}}" @endisset>
+                    Gelieve aan te geven welke Comakership-project je reeds hebt uitgevoerd en bij welke organisatie.
+                    Beschrijf kort de inhoud van het CoMakership</label>
+                  <input type="text" class="form-control" name="student_1[previous_comakership]"
+                    id="previous_comakership" placeholder="Comakership" @isset($assignment)
+                    value="{{$assignment->student1->previous_comakership}}" @endisset>
                 </div>
-                  @endif
-                </div>
+                @endif
               </div>
-              <!--Einde Drempelcheck student 1 -->
-              <!-- Drempelcheck student 2 -->
-              @if(!$graduate)
-              <div class="col">
-                <div class="form-group col-md" id="student_2_missing">
-                  <label>Drempels student 2</label>
-                  <br>
-                  <label for="ec">Aantal (tot nog toe) behaalde EC's</label>
-                  <input type="ec" class="form-control" name="student_2[ec]" id="ec" placeholder="45"
-                    @isset($assignment) value="{{$assignment->student2->ec}}" @endisset>
-                  <br>
-                  <label for="modules">Welke module's staan nog open?</label>
-                  <br>
-                  <div class="form-check">
-                    <input data-required="true" class="form-check-input" type="checkbox" id="Project Software Development"
-                      name="student_2[modules][project software development]" value="project software development"
-                      @if(isset($assignment) && in_array("project software development",explode('|',
-                      $assignment->student1->modules))) checked @endif>
-                    <label class="form-check-label">
-                      Project Software Development
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="Database, Ontwerpen, Modelleren en Programmeren"
-                      name="student_2[modules][database, ontwerpen, modelleren en programmeren]"
-                      value="database, ontwerpen, modelleren en programmeren" @if(isset($assignment) &&
-                      in_array("database, ontwerpen, modelleren en programmeren",explode('|',
-                      $assignment->student1->modules))) checked @endif>
-                    <label class="form-check-label">database, ontwerpen, modelleren en programmeren</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="Professionele vaardigheden 1"
-                      name="student_2[modules][Professionele vaardigheden 1]" value="Professionele vaardigheden 1"
-                      @if(isset($assignment) && in_array("Professionele vaardigheden 1",explode('|',
-                      $assignment->student1->modules))) checked @endif>
-                    <label class="form-check-label">Professionele vaardigheden 1</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="OO programmeren met een web framework (Laravel)"
-                      name="student_2[modules][OO programmeren met een web framework (Laravel)]"
-                      value="OO programmeren met een web framework (Laravel)" @if(isset($assignment) && in_array("OO
-                      programmeren met een web framework (Laravel)",explode('|', $assignment->student1->modules)))
-                    checked
-                    @endif>
-                    <label class="form-check-label">OO programmeren met een web framework (Laravel)</label>
-                  </div>
-                  <div class="form-check">
-                    <input data-required="true" class="form-check-input" type="checkbox" id="Project Frameworks"
-                      name="student_2[modules][Project Frameworks]" value="Project Frameworks" @if(isset($assignment) &&
-                      in_array("Project Frameworks",explode('|', $assignment->student1->modules))) checked @endif>
-                    <label class="form-check-label">Project Frameworks</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="Software Development 1"
-                      name="student_2[modules][Software Development 1]" value="Software Development 1"
-                      @if(isset($assignment) && in_array("Software Development 1",explode('|',
-                      $assignment->student1->modules))) checked @endif>
-                    <label class="form-check-label">Software Development 1</label>
-                  </div>
-                  <div class="form-check">
-                    <input data-required="true" class="form-check-input" type="checkbox" id="Project ADSD Laboratorium 1"
-                      name="student_2[modules][Project ADSD Laboratorium 1]" value="Project ADSD Laboratorium 1"
-                      @if(isset($assignment) && in_array("Project ADSD Laboratorium 1",explode('|',
-                      $assignment->student1->modules))) checked @endif>
-                    <label class="form-check-label">Project ADSD Laboratorium 1</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="Professionele vaardigheden 2"
-                      name="student_2[modules][Professionele vaardigheden 2]" value="Professionele vaardigheden 2"
-                      @if(isset($assignment) && in_array("Professionele vaardigheden 2",explode('|',
-                      $assignment->student1->modules))) checked @endif>
-                    <label class="form-check-label">Professionele vaardigheden 2</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="Software Development 2"
-                      name="student_2[modules][Software Development 2]" value="Software Development 2"
-                      @if(isset($assignment) && in_array("Software Development 2",explode('|',
-                      $assignment->student1->modules))) checked @endif>
-                    <label class="form-check-label">Software Development 2</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="Software Quality"
-                      name="student_2[modules][Software Quality]" value="Software Quality" @if(isset($assignment) &&
-                      in_array("Software Quality",explode('|', $assignment->student1->modules))) checked @endif>
-                    <label class="form-check-label">Software Quality</label>
-                  </div>
-                  <div class="form-check">
-                    <input data-required="true" class="form-check-input" type="checkbox" id="Project ADSD Laboratorium 2"
-                      name="student_2[modules][Project ADSD Laboratorium 2]" value="Project ADSD Laboratorium 2"
-                      @if(isset($assignment) && in_array("Project ADSD Laboratorium 2",explode('|',
-                      $assignment->student1->modules))) checked @endif>
-                    <label class="form-check-label">Project ADSD Laboratorium 2</label>
-                  </div>
-                </div>
-              </div>
-              @endif
             </div>
+            <!--Einde Drempelcheck student 1 -->
+            <!-- Drempelcheck student 2 -->
+            @if(!$graduate)
+            <div class="col">
+              <div class="form-group col-md" id="student_2_missing">
+                <label>Drempels student 2</label>
+                <br>
+                <label for="ec">Aantal (tot nog toe) behaalde EC's</label>
+                <input type="ec" class="form-control" name="student_2[ec]" id="ec" placeholder="45" @isset($assignment)
+                  value="{{$assignment->student2->ec}}" @endisset>
+                <br>
+                <label for="modules">Welke module's staan nog open?</label>
+                <br>
+                <div class="form-check">
+                  <input data-required="true" class="form-check-input" type="checkbox" id="Project Software Development"
+                    name="student_2[modules][project software development]" value="project software development"
+                    @if(isset($assignment) && in_array("project software development",explode('|',
+                    $assignment->student1->modules))) checked @endif>
+                  <label class="form-check-label">
+                    Project Software Development
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="Database, Ontwerpen, Modelleren en Programmeren"
+                    name="student_2[modules][database, ontwerpen, modelleren en programmeren]"
+                    value="database, ontwerpen, modelleren en programmeren" @if(isset($assignment) &&
+                    in_array("database, ontwerpen, modelleren en programmeren",explode('|',
+                    $assignment->student1->modules))) checked @endif>
+                  <label class="form-check-label">database, ontwerpen, modelleren en programmeren</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="Professionele vaardigheden 1"
+                    name="student_2[modules][Professionele vaardigheden 1]" value="Professionele vaardigheden 1"
+                    @if(isset($assignment) && in_array("Professionele vaardigheden 1",explode('|',
+                    $assignment->student1->modules))) checked @endif>
+                  <label class="form-check-label">Professionele vaardigheden 1</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="OO programmeren met een web framework (Laravel)"
+                    name="student_2[modules][OO programmeren met een web framework (Laravel)]"
+                    value="OO programmeren met een web framework (Laravel)" @if(isset($assignment) && in_array("OO
+                    programmeren met een web framework (Laravel)",explode('|', $assignment->student1->modules)))
+                  checked
+                  @endif>
+                  <label class="form-check-label">OO programmeren met een web framework (Laravel)</label>
+                </div>
+                <div class="form-check">
+                  <input data-required="true" class="form-check-input" type="checkbox" id="Project Frameworks"
+                    name="student_2[modules][Project Frameworks]" value="Project Frameworks" @if(isset($assignment) &&
+                    in_array("Project Frameworks",explode('|', $assignment->student1->modules))) checked @endif>
+                  <label class="form-check-label">Project Frameworks</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="Software Development 1"
+                    name="student_2[modules][Software Development 1]" value="Software Development 1"
+                    @if(isset($assignment) && in_array("Software Development 1",explode('|',
+                    $assignment->student1->modules))) checked @endif>
+                  <label class="form-check-label">Software Development 1</label>
+                </div>
+                <div class="form-check">
+                  <input data-required="true" class="form-check-input" type="checkbox" id="Project ADSD Laboratorium 1"
+                    name="student_2[modules][Project ADSD Laboratorium 1]" value="Project ADSD Laboratorium 1"
+                    @if(isset($assignment) && in_array("Project ADSD Laboratorium 1",explode('|',
+                    $assignment->student1->modules))) checked @endif>
+                  <label class="form-check-label">Project ADSD Laboratorium 1</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="Professionele vaardigheden 2"
+                    name="student_2[modules][Professionele vaardigheden 2]" value="Professionele vaardigheden 2"
+                    @if(isset($assignment) && in_array("Professionele vaardigheden 2",explode('|',
+                    $assignment->student1->modules))) checked @endif>
+                  <label class="form-check-label">Professionele vaardigheden 2</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="Software Development 2"
+                    name="student_2[modules][Software Development 2]" value="Software Development 2"
+                    @if(isset($assignment) && in_array("Software Development 2",explode('|',
+                    $assignment->student1->modules))) checked @endif>
+                  <label class="form-check-label">Software Development 2</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="Software Quality"
+                    name="student_2[modules][Software Quality]" value="Software Quality" @if(isset($assignment) &&
+                    in_array("Software Quality",explode('|', $assignment->student1->modules))) checked @endif>
+                  <label class="form-check-label">Software Quality</label>
+                </div>
+                <div class="form-check">
+                  <input data-required="true" class="form-check-input" type="checkbox" id="Project ADSD Laboratorium 2"
+                    name="student_2[modules][Project ADSD Laboratorium 2]" value="Project ADSD Laboratorium 2"
+                    @if(isset($assignment) && in_array("Project ADSD Laboratorium 2",explode('|',
+                    $assignment->student1->modules))) checked @endif>
+                  <label class="form-check-label">Project ADSD Laboratorium 2</label>
+                </div>
+              </div>
+            </div>
+            @endif
           </div>
-          <!-- Einde gegevens studenten -->
-        </fieldset>
+  </div>
+  <!-- Einde gegevens studenten -->
+  </fieldset>
 
-        <fieldset>
-          <!-- Start studenten gegevens -->
-          <div id="modular_questions_error" style="display: none">
-            Te weinig studiepunten, helaas pindakaas
-          </div>
-          
-          <div class="container" id="modular_questions">
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  @foreach ($categories as $category)
-                  <legend>{{$category->description}}</legend>
-                  @if($category->custom_input == 'competentie')
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <td></td>
-                        <td>Niv 1</td>
-                        <td>Niv 2</td>
-                        <td>Niv 3</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Analyseren</td>
-                        <td><input type="radio" name="analyseren" @checked(isset($assignment) && $assignment->analyse_level == 1) id="" value="1"/></td>
-                        <td><input type="radio" name="analyseren" @checked(isset($assignment) && $assignment->analyse_level == 2) id="" value="2"/></td>
-                        <td><input type="radio" name="analyseren" @checked(isset($assignment) && $assignment->analyse_level == 3) id="" value="3"/></td>
-                      </tr>
-                          <tr>
-                        <td>Adviseren</td>
-                        <td><input type="radio" name="adviseren" @checked(isset($assignment) && $assignment->advise_level == 1) id="" value="1"/></td>
-                        <td><input type="radio" name="adviseren" @checked(isset($assignment) && $assignment->advise_level == 2) id="" value="2"/></td>
-                        <td><input type="radio" name="adviseren" @checked(isset($assignment) && $assignment->advise_level == 3) id="" value="3"/></td>
-                      </tr>
-                          <tr>
-                        <td>Ontwerpen</td>
-                        <td><input type="radio" name="ontwerpen" @checked(isset($assignment) && $assignment->design_level == 1) id="" value="1"/></td>
-                        <td><input type="radio" name="ontwerpen" @checked(isset($assignment) && $assignment->design_level == 2) id="" value="2"/></td>
-                        <td><input type="radio" name="ontwerpen" @checked(isset($assignment) && $assignment->design_level == 3) id="" value="3"/></td>
-                      </tr>
-                      <tr>
-                        <td>Realiseren</td>
-                        <td><input type="radio" name="realiseren" @checked(isset($assignment) && $assignment->build_level == 1) id="" value="1"/></td>
-                        <td><input type="radio" name="realiseren" @checked(isset($assignment) && $assignment->build_level == 2) id="" value="2"/></td>
-                        <td><input type="radio" name="realiseren" @checked(isset($assignment) && $assignment->build_level == 3) id="" value="3"/></td>
-                      </tr>
-                      <tr>
-                        <td>Manage & control</td>
-                        <td><input type="radio" name="manage" @checked(isset($assignment) && $assignment->manage_level == 1) id="" value="1"/></td>
-                        <td><input type="radio" name="manage" @checked(isset($assignment) && $assignment->manage_level == 2) id="" value="2"/></td>
-                        <td><input type="radio" name="manage" @checked(isset($assignment) && $assignment->manage_level == 3) id="" value="3"/></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  @endif
-                  @foreach ($category->questions as $question)
-                  <label for="question-{{$question->id}}">{{$question->description}}</label>
-                  <textarea name="questions[{{$question->id}}]" class="form-control"
-                     id="question-{{$question->id}}"
-                    type="{{$question->type}}">{{isset($answers)? $answers[$question->id]->answer:''}}
+  <fieldset>
+    <!-- Start studenten gegevens -->
+    <div id="modular_questions_error" style="display: none">
+      Te weinig studiepunten, helaas pindakaas
+    </div>
+
+    <div class="container" id="modular_questions">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            @foreach ($categories as $category)
+            <legend>{{$category->description}}</legend>
+            @if($category->custom_input == 'competentie')
+            <table class="table">
+              <thead>
+                <tr>
+                  <td></td>
+                  <td>Niv 1</td>
+                  <td>Niv 2</td>
+                  <td>Niv 3</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Analyseren</td>
+                  <td><input type="radio" name="analyseren" @checked(isset($assignment) && $assignment->analyse_level ==
+                    1) id="" value="1"/></td>
+                  <td><input type="radio" name="analyseren" @checked(isset($assignment) && $assignment->analyse_level ==
+                    2) id="" value="2"/></td>
+                  <td><input type="radio" name="analyseren" @checked(isset($assignment) && $assignment->analyse_level ==
+                    3) id="" value="3"/></td>
+                </tr>
+                <tr>
+                  <td>Adviseren</td>
+                  <td><input type="radio" name="adviseren" @checked(isset($assignment) && $assignment->advise_level ==
+                    1) id="" value="1"/></td>
+                  <td><input type="radio" name="adviseren" @checked(isset($assignment) && $assignment->advise_level ==
+                    2) id="" value="2"/></td>
+                  <td><input type="radio" name="adviseren" @checked(isset($assignment) && $assignment->advise_level ==
+                    3) id="" value="3"/></td>
+                </tr>
+                <tr>
+                  <td>Ontwerpen</td>
+                  <td><input type="radio" name="ontwerpen" @checked(isset($assignment) && $assignment->design_level ==
+                    1) id="" value="1"/></td>
+                  <td><input type="radio" name="ontwerpen" @checked(isset($assignment) && $assignment->design_level ==
+                    2) id="" value="2"/></td>
+                  <td><input type="radio" name="ontwerpen" @checked(isset($assignment) && $assignment->design_level ==
+                    3) id="" value="3"/></td>
+                </tr>
+                <tr>
+                  <td>Realiseren</td>
+                  <td><input type="radio" name="realiseren" @checked(isset($assignment) && $assignment->build_level ==
+                    1) id="" value="1"/></td>
+                  <td><input type="radio" name="realiseren" @checked(isset($assignment) && $assignment->build_level ==
+                    2) id="" value="2"/></td>
+                  <td><input type="radio" name="realiseren" @checked(isset($assignment) && $assignment->build_level ==
+                    3) id="" value="3"/></td>
+                </tr>
+                <tr>
+                  <td>Manage & control</td>
+                  <td><input type="radio" name="manage" @checked(isset($assignment) && $assignment->manage_level == 1)
+                    id="" value="1"/></td>
+                  <td><input type="radio" name="manage" @checked(isset($assignment) && $assignment->manage_level == 2)
+                    id="" value="2"/></td>
+                  <td><input type="radio" name="manage" @checked(isset($assignment) && $assignment->manage_level == 3)
+                    id="" value="3"/></td>
+                </tr>
+              </tbody>
+            </table>
+            @endif
+            @foreach ($category->questions as $question)
+            <label for="question-{{$question->id}}">{{$question->description}}</label>
+            {{-- <span class="questionmark"
+              data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Tooltip on right"id="question-{{$question->id}}-tip"> --}}
+
+
+              <textarea name="questions[{{$question->id}}]" class="form-control" id="question-{{$question->id}}"
+                type="{{$question->type}}">{{isset($answers)? $answers[$question->id]->answer:''}}
                   </textarea>
-                  <br>
-                  @endforeach
-                  @endforeach
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Einde gegevens studenten -->
-        </fieldset>
+              <br>
+              @endforeach
+              @endforeach
 
-
-        @if($graduate)
-        <input type="checkbox" hidden checked name="graduate">
-        @endif
-
-        <div class="form-group">
-          <div class="col-md-12">
-            <button type="submit" name="submit" value="save" class="btn btn-primary">
-              Aanvraag versturen
-            </button>
-            <button type="submit" name="submit" value="temp" class="btn btn-primary">
-              Tussentijds opslaan
-            </button>
           </div>
         </div>
+      </div>
+    </div>
+    <!-- Einde gegevens studenten -->
+  </fieldset>
 
-      </form>
+
+  @if($graduate)
+  <input type="checkbox" hidden checked name="graduate">
+  @endif
+
+  <div class="form-group">
+    <div class="col-md-12">
+      <button type="submit" name="submit" value="save" class="btn btn-primary">
+        Aanvraag versturen
+      </button>
+      <button type="submit" name="submit" value="temp" class="btn btn-primary">
+        Tussentijds opslaan
+      </button>
+    </div>
   </div>
+
+  </form>
+</div>
 
 </div>
 @endsection
@@ -400,6 +420,9 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
   
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
     const allInput = [...document.getElementById('student_1_missing').querySelectorAll('input'), ...document.getElementById('student_2_missing').querySelectorAll('input')]
     
     allInput.forEach(item => {
