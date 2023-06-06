@@ -19,12 +19,19 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $categories = QuestionCategory::all();
-        return view('questions_1', ['categories' => $categories ]);
+        if(!$request->query('graduate'))
+        {
+            $categories = QuestionCategory::all();
+            return view('ADSD1', ['categories' => $categories ]);
+        }else
+        {
+            $categories = QuestionCategory::all();
+            return view('ADSD2', ['categories' => $categories ]);
+        }
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -32,7 +39,7 @@ class QuestionController extends Controller
     {
         //
     }
-
+    
     /**
      * Display the specified resource.
      */

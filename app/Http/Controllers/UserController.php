@@ -47,6 +47,11 @@ class UserController extends Controller
         User::create($student1);
         User::create($student2);
 
+        $student = $request->student;
+        $student['modules'] = join(" | ", $student['modules']);
+        User::create($student);
+
+
         // $user->first_name = $request->first_name;
         // $user->last_name = $request->last_name;
         // $user->student_number = $request->student_number;
@@ -55,7 +60,7 @@ class UserController extends Controller
         // $user->modules = $request->modules; 
         // $user->previous_comakership = $request->previous_comakership;
 
-        return redirect('questions');
+        return redirect('questions/create');
     }
 
     /**
@@ -63,7 +68,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // echo "hello world";
     }
 
     /**
