@@ -21,6 +21,7 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    //Haalt categorieën op en vragen
     public function create(Request $request)
     {
             $categories = QuestionCategory::with('questions')->get();
@@ -41,7 +42,6 @@ class QuestionController extends Controller
     public function show(string $id)
     {
         $ass = Assignment::with('student1')->with('answers')->find($id);
-        // dd($ass);
     }
 
     /**
@@ -55,8 +55,6 @@ class QuestionController extends Controller
         foreach($ass->answers as $answer){
             $answers[$answer->question_id] = $answer;
         }
-        // dd(explode('|', $ass->student1->modules));
-        // dd($answers);
         if($ass->draft)
         {
             return view('ADSD1', ['categories' => $categories, 'assignment' => $ass, 'answers' => $answers, 'graduate' => $ass->graduate ]);

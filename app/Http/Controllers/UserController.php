@@ -43,42 +43,30 @@ class UserController extends Controller
         if(isset($student1['modules']))$student1['modules'] = join("|", $student1['modules']);
         else $student1['modules'] = ' ';
         $students[] = User::create($student1);
+        // Checkt het of het geen afstudeer aanmeldformulier is
         if (!$request->graduate) {
-
-            // dd($request);
-
             $student2 = $request->student_2;
             if(isset($student2['modules']))$student2['modules'] = join("|", $student2['modules']);
             else $student2['modules'] = ' ';
             $students[] = User::create($student2);
         }
-        // else{
-
-        //     $student1 = $request->student;
-        //     $student1['modules'] = join("|", $student1['modules']);
-        //     $students[] = User::create($student1);
-
-        //     $student2 = $request->student;
-        //     $student2['modules'] = join("|", $student2['modules']);
-        //     $students[] = User::create($student2);
-        // }
-
-
 
         //Assignment
         $ass = new Assignment();
         $ass->student1()->associate($students[0]);
+        // Checkt of er een tweede student is
         if (isset($students[1])) $ass->student2()->associate($students[1]);
         $ass->draft = $request->submit == 'temp';
         $ass->graduate = !!$request->graduate;
 
-        //Competesence
+        //Competences
         $ass->analyse_level = $request->analyseren;
         $ass->advise_level = $request->adviseren;
         $ass->design_level = $request->ontwerpen;
         $ass->build_level = $request->realiseren;
         $ass->manage_level = $request->manage;
         $ass->save();
+        
         //Questions
         foreach ($request->questions as $question_id => $answer) {
             Answer::create([
@@ -89,7 +77,7 @@ class UserController extends Controller
         }
 
 
-        //Mail
+        //Mail handling
         if ($request->submit == 'temp') {
             $ass->edit_key = Str::uuid();
             $ass->save();
@@ -105,6 +93,7 @@ class UserController extends Controller
             $ass->load('student2');
             $ass->load('answers');
 
+            // Laadt de categorieën in en de vragen
             $categories = QuestionCategory::with('questions')->get();
             $answers = [];
             foreach ($ass->answers as $answer) {
@@ -112,14 +101,14 @@ class UserController extends Controller
             }
             $email_data['assignment'] = $ass;
 
+            //Genereert PDF die naar arie wordt verzonden
             $pdf = Pdf::loadView('emails.PDF_form', ['assignment' => $ass, 'answers' => $answers, 'categories' => $categories]);
 
             Mail::send('emails.PDF_mail', $email_data, function ($message) use ($email_data, $pdf, $ass) {
                 $message->to("arie@windesheim.nl")->subject($email_data['title'])
                     ->attachData($pdf->output(), "AanmeldingComakership_" . $ass->student1->first_name . ($ass->student2 ? "_" . $ass->student2->first_name : '') . ".pdf");
             });
-            //Stuur mail naar student met ontvangstbevestiging 
-            //Stuur mail naar arie met pdf
+            //Stuurt bevestiging naar student
         }
         return redirect('questions/create');
     }
@@ -196,6 +185,7 @@ class UserController extends Controller
         //
     }
 
+    //error handling goedkeuren en afkeuren aanmeldingen
     public function checkGradeAllowed(Assignment $ass, string $key){
         $error = null;
         if (!$ass) dd('no ass found');
@@ -205,6 +195,7 @@ class UserController extends Controller
         return $error;
     }
 
+    //goedkeuren van aanmelding
     public function grade(Request $request, string $id)
     {
         $ass = Assignment::with('student1')->with('student2')->with('answers')->find($id);
@@ -231,6 +222,7 @@ class UserController extends Controller
         }
     }
 
+    //afkeuren van aanmelding
     public function reject(Request $request, string $id) {
         $ass = Assignment::with('student1')->with('student2')->with('answers')->find($id);
         $checkGradeAllowed = $this->checkGradeAllowed($ass, $request->key);
