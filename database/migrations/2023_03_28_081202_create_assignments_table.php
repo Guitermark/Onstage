@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('problem');
             $table->string('description');
+            $table->boolean('draft');
             $table->foreignId('company_id')->constrained()->restrictOnDelete();
             $table->timestamps();
             $table->foreignId('users_id')->constrained()->restrictOnDelete();
+            $table->unsignedBigInteger('users2_id');
+            $table->foreign('users2_id')->references('id')->on('users');
         });
     }
    

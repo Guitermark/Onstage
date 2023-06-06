@@ -15,8 +15,13 @@ class Assignment extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function user():BelongsTo
+    public function student1():BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function student2():BelongsTo
+    {
+        return $this->belongsTo(User::class, 'users2_id');
     }
 }
