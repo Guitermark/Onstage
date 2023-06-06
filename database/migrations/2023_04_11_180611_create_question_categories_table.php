@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('question_categories', function (Blueprint $table) {
             $table->id();
             $table->string('description');
+            $table->string('custom_input')->nullable();
             $table->timestamps();
         });
     }

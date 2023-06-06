@@ -21,4 +21,4 @@ Route::get('/', function () {
 
 Route::resource('questions', QuestionController::class);
 Route::resource('users', UserController::class);
-Route::get('send_mail_pdf', [SendMailPDFController::class, 'sendMailWithPDF'])->name('send_mail_pdf');
+Route::get('grade/{question}', [UserController::class, 'grade'])->name('user.grade');
