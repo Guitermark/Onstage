@@ -28,4 +28,42 @@ td > input {
     font-weight: var(--fa-style, 900);
   }
   
+  form-control {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  }
   
+  /* Tooltip text */
+   .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  form-control:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  span.questionmark::before {
+    content: "\f059";
+    text-align: center;
+    display: inline-block;
+    color:blue;
+    font-family: var(--fa-style-family, "Font Awesome 6 Free");
+    font-weight: var(--fa-style, 400);
+  }
+
+  span.questionmark {
+    width: 24px;
+    height: 24px;
+  }

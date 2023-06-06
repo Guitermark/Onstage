@@ -40,14 +40,16 @@ class UserController extends Controller
 
         $students = [];
         $student1 = $request->student_1;
-        $student1['modules'] = join("|", $student1['modules']);
+        if(isset($student1['modules']))$student1['modules'] = join("|", $student1['modules']);
+        else $student1['modules'] = ' ';
         $students[] = User::create($student1);
         if (!$request->graduate) {
 
             // dd($request);
 
             $student2 = $request->student_2;
-            $student2['modules'] = join("|", $student2['modules']);
+            if(isset($student2['modules']))$student2['modules'] = join("|", $student2['modules']);
+            else $student2['modules'] = ' ';
             $students[] = User::create($student2);
         }
         // else{
@@ -114,7 +116,7 @@ class UserController extends Controller
 
             Mail::send('emails.PDF_mail', $email_data, function ($message) use ($email_data, $pdf, $ass) {
                 $message->to("arie@windesheim.nl")->subject($email_data['title'])
-                    ->attachData($pdf->output(), "AanmeldingComakership_" . $ass->student1->name . ($ass->student2 ? "_" . $ass->student2->name : '') . ".pdf");
+                    ->attachData($pdf->output(), "AanmeldingComakership_" . $ass->student1->first_name . ($ass->student2 ? "_" . $ass->student2->first_name : '') . ".pdf");
             });
             //Stuur mail naar student met ontvangstbevestiging 
             //Stuur mail naar arie met pdf
@@ -142,6 +144,8 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $ass = Assignment::with('student1')->with('student2')->with('answers')->where('edit_key', '=', $request->edit_key)->find($id);
+        $ass->edit_key = null;
+        $ass->save();
         foreach ($ass->answers as $answer) {
             // dump($answer);
             $answer->answer = $request->questions[$answer->question_id];
@@ -176,7 +180,7 @@ class UserController extends Controller
 
             Mail::send('emails.PDF_mail', $email_data, function ($message) use ($email_data, $pdf, $ass) {
                 $message->to("arie@windesheim.nl")->subject($email_data['title'])
-                    ->attachData($pdf->output(), "AanmeldingComakership_" . $ass->student1->name . ($ass->student2 ? "_" . $ass->student2->name : '') . ".pdf");
+                    ->attachData($pdf->output(), "AanmeldingComakership_" . $ass->student1->first_name . ($ass->student2 ? "_" . $ass->student2->first_name : '') . ".pdf");
             });
         }
 
@@ -192,14 +196,23 @@ class UserController extends Controller
         //
     }
 
+    public function checkGradeAllowed(Assignment $ass, string $key){
+        $error = null;
+        if (!$ass) dd('no ass found');
+        if (!$ass->grade_key && !$ass->edit_key) $error = 'Opdracht is al geaccepteerd.';
+        else if ($ass->edit_key && !$ass->grade_key) $error = 'Opdracht is nog niet klaar om te beoordelen.';
+        else if ($ass->grade_key != $key) $error = 'Beoordeling niet toegestaan';
+        return $error;
+    }
+
     public function grade(Request $request, string $id)
     {
-        $ass = Assignment::with('student1')->with('student2')->with('answers')->where('grade_key', '=', $request->query('key'))->find($id);
-        if (!$ass) dd('no ass found');
-        $ass->grade_key = null;
-        $ass->save();
+        $ass = Assignment::with('student1')->with('student2')->with('answers')->find($id);
+        $checkGradeAllowed = $this->checkGradeAllowed($ass, $request->query('key'));
+        if($checkGradeAllowed != null) return view("grading.grading_error", ["error" => $checkGradeAllowed]);
         if ($request->accept) {
-
+            $ass->grade_key = null;
+            $ass->save();
             $categories = QuestionCategory::with('questions')->get();
             $answers = [];
             foreach ($ass->answers as $answer) {
@@ -208,17 +221,27 @@ class UserController extends Controller
             $email_data['title'] = "Comakership geaccepteerd";
 
             $pdf = Pdf::loadView('emails.PDF_form', ['assignment' => $ass, 'answers' => $answers, 'categories' => $categories]);
-
             $email_data['assignment'] = $ass;
             Mail::send('emails.Assignment_accepted', $email_data, function ($message) use ($email_data, $pdf, $ass) {
                 $message->to("arie@windesheim.nl")->subject($email_data['title'])
-                    ->attachData($pdf->output(), "AanmeldingComakership_" . $ass->student1->name . ($ass->student2 ? "_" . $ass->student2->name : '') . ".pdf");
+                    ->attachData($pdf->output(), "AanmeldingComakership_" . $ass->student1->first_name . ($ass->student2 ? "_" . $ass->student2->first_name : '') . ".pdf");
             });
         } else {
-            $ass->edit_key = Str::uuid();
-            $ass->draft = true;
-            $ass->save();
-            Mail::to('s1177304@student.windesheim.nl')->send(new tempSave($ass, true));
+            return view('grading.grade', ["accepted"=>false, "key"=>$request->query('key'), "assignment"=>$ass]);
         }
+    }
+
+    public function reject(Request $request, string $id) {
+        $ass = Assignment::with('student1')->with('student2')->with('answers')->find($id);
+        $checkGradeAllowed = $this->checkGradeAllowed($ass, $request->key);
+        if($checkGradeAllowed != null) return view("grading.grading_error", ["error" => $checkGradeAllowed]);
+        $ass->grade_key = null;
+        $ass->save();
+        $ass->edit_key = Str::uuid();
+        $ass->feedback = $request->reason;
+        $ass->draft = true;
+        $ass->save();
+        Mail::to('s1177304@student.windesheim.nl')->send(new tempSave($ass, true));
+        return view('grading.grade_rejected');
     }
 }
