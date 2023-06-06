@@ -93,6 +93,66 @@
     <table class="styled-table">
         @foreach ($categories as $category)
         <tr><th colspan="2"> {{$category->description}}</th></tr>
+        @if($category->custom_input == 'competentie')
+        <table class="table">
+          <thead>
+            <tr>
+              <td></td>
+              <td>Niv 1</td>
+              <td>Niv 2</td>
+              <td>Niv 3</td>
+            </tr>
+          </thead>
+          <!-- Competentie tabel -->
+          <tbody>
+            <tr>
+              <td>Analyseren</td>
+              <td><input type="radio" name="analyseren" @checked(isset($assignment) && $assignment->analyse_level ==
+                1) id="" value="1"/></td>
+              <td><input type="radio" name="analyseren" @checked(isset($assignment) && $assignment->analyse_level ==
+                2) id="" value="2"/></td>
+              <td><input type="radio" name="analyseren" @checked(isset($assignment) && $assignment->analyse_level ==
+                3) id="" value="3"/></td>
+            </tr>
+            <tr>
+              <td>Adviseren</td>
+              <td><input type="radio" name="adviseren" @checked(isset($assignment) && $assignment->advise_level ==
+                1) id="" value="1"/></td>
+              <td><input type="radio" name="adviseren" @checked(isset($assignment) && $assignment->advise_level ==
+                2) id="" value="2"/></td>
+              <td><input type="radio" name="adviseren" @checked(isset($assignment) && $assignment->advise_level ==
+                3) id="" value="3"/></td>
+            </tr>
+            <tr>
+              <td>Ontwerpen</td>
+              <td><input type="radio" name="ontwerpen" @checked(isset($assignment) && $assignment->design_level ==
+                1) id="" value="1"/></td>
+              <td><input type="radio" name="ontwerpen" @checked(isset($assignment) && $assignment->design_level ==
+                2) id="" value="2"/></td>
+              <td><input type="radio" name="ontwerpen" @checked(isset($assignment) && $assignment->design_level ==
+                3) id="" value="3"/></td>
+            </tr>
+            <tr>
+              <td>Realiseren</td>
+              <td><input type="radio" name="realiseren" @checked(isset($assignment) && $assignment->build_level ==
+                1) id="" value="1"/></td>
+              <td><input type="radio" name="realiseren" @checked(isset($assignment) && $assignment->build_level ==
+                2) id="" value="2"/></td>
+              <td><input type="radio" name="realiseren" @checked(isset($assignment) && $assignment->build_level ==
+                3) id="" value="3"/></td>
+            </tr>
+            <tr>
+              <td>Manage & control</td>
+              <td><input type="radio" name="manage" @checked(isset($assignment) && $assignment->manage_level == 1)
+                id="" value="1"/></td>
+              <td><input type="radio" name="manage" @checked(isset($assignment) && $assignment->manage_level == 2)
+                id="" value="2"/></td>
+              <td><input type="radio" name="manage" @checked(isset($assignment) && $assignment->manage_level == 3)
+                id="" value="3"/></td>
+            </tr>
+          </tbody>
+        </table>
+        @endif
             @foreach ($category->questions as $question)
             <tr>
                 <td>{{$question->description}}</td>

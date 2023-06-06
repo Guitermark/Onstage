@@ -1,10 +1,12 @@
 describe("Comakership 1 aanmelding ADSD ", () => {
     let editLink, rejectUrl = null;
     const bodyParser = new DOMParser();
+
     it("Allowes users to go to the right form", () => {
         cy.visit("http://127.0.0.1:8000");
         cy.contains("ADSD Comakership 1").click();
 
+        //student 1 gegevens
         cy.get('input[name="student_1[first_name]"]').type("John");
         cy.get('input[name="student_1[last_name]"]').type("Doe");
         cy.get('input[name="student_1[student_number]"]').type("s1122334");
@@ -16,6 +18,7 @@ describe("Comakership 1 aanmelding ADSD ", () => {
             'input[name="student_1[modules][Professionele vaardigheden 1]"'
         ).check();
 
+        //student 2 gegevens
         cy.get('input[name="student_2[first_name]"]').type("Jane");
         cy.get('input[name="student_2[last_name]"]').type("Doe");
         cy.get('input[name="student_2[student_number]"]').type("s2233445");
@@ -27,11 +30,13 @@ describe("Comakership 1 aanmelding ADSD ", () => {
             'input[name="student_2[modules][OO programmeren met een web framework (Laravel)]"'
         ).check();
 
+        //Automatische antwoorden voor iedere vraag
         cy.get('textarea[id^="question-"]').each(($el) => {
             const id = $el.attr("id");
             cy.wrap($el).type(`${id}: cypress test antwoord`);
         });
 
+        //vult competenties in
         cy.get('input[name="analyseren"]').check("2");
         cy.get('input[name="adviseren"]').check("2");
         cy.get('input[name="ontwerpen"]').check("2");
@@ -39,6 +44,8 @@ describe("Comakership 1 aanmelding ADSD ", () => {
         cy.get('input[name="manage"]').check("2");
 
         cy.contains("Tussentijds opslaan").click();
+
+        // Haalt tijdelijk opslaan link op uit ontvangen email
         cy.request("http://localhost:8025/api/v1/messages").then((resp) => {
             cy.request(
                 `http://localhost:8025/api/v1/message/${resp.body.messages[0].ID}`
@@ -50,10 +57,13 @@ describe("Comakership 1 aanmelding ADSD ", () => {
     });
 
     it("submit file temporary", () => {
+        
+        //Gaat via de tijdelijk opslaan link naar de edit pagina
         cy.visit(editLink);
         cy.get('input[name="student_1[first_name]"]').clear();
         cy.get('input[name="student_1[first_name]"]').type("Arie");
         cy.contains("Aanvraag versturen").click();
+        
         cy.request("http://localhost:8025/api/v1/messages").then((resp) => {
             cy.request(
                 `http://localhost:8025/api/v1/message/${resp.body.messages[0].ID}`
@@ -65,6 +75,8 @@ describe("Comakership 1 aanmelding ADSD ", () => {
             });
         });
     });
+
+    //Test ontvangen van PDF
     it("Accept file PDF", () =>{
         cy.visit(rejectUrl)
     })
