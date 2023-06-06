@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Answer;
 use App\Models\Assignment;
 use App\Models\Question;
+use App\Models\QuestionCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -21,7 +22,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        
     }
 
     /**
@@ -37,21 +37,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $students = [];
         $student1 = $request->student_1;
         $student1['modules'] = join("|", $student1['modules']);
         $students[] = User::create($student1);
-        if(!$request->graduate){
-            
+        if (!$request->graduate) {
+
             // dd($request);
-            
+
             $student2 = $request->student_2;
             $student2['modules'] = join("|", $student2['modules']);
             $students[] = User::create($student2);
         }
         // else{
-            
+
         //     $student1 = $request->student;
         //     $student1['modules'] = join("|", $student1['modules']);
         //     $students[] = User::create($student1);
@@ -60,42 +60,51 @@ class UserController extends Controller
         //     $student2['modules'] = join("|", $student2['modules']);
         //     $students[] = User::create($student2);
         // }
-        
 
-        
+
+
         //Assignment
         $ass = new Assignment();
         $ass->description = $request->assignment['description'];
         $ass->student1()->associate($students[0]);
-        if(isset($students[1]))$ass->student2()->associate($students[1]);
+        if (isset($students[1])) $ass->student2()->associate($students[1]);
         $ass->draft = $request->submit == 'temp';
         $ass->graduate = !!$request->graduate;
         $ass->save();
         //Questions
-        foreach($request->questions as $question_id => $answer) {
+        foreach ($request->questions as $question_id => $answer) {
             Answer::create([
                 'answer' => $answer,
                 'question_id' => $question_id,
                 'assignment_id' => $ass->id
             ]);
         }
-        
+
         //Mail
-        if($request->submit == 'temp'){
+        if ($request->submit == 'temp') {
             $ass->edit_key = Str::uuid();
             $ass->save();
             // dd($ass);
             Mail::to('s1177304@student.windesheim.nl')->send(new tempSave($ass));
-        }else {
-            $data["email"] = "user";
-            $data["Title"] = "Nieuwe aanmelding Comakership";
+        } else {
+            $email_data["email"] = "s1177304@student.windesheim.nl";
+            $email_data["title"] = "Nieuwe aanmelding Comakership";
 
-            $pdf = Pdf::loadView('pdf_mail', $data);
+            $ass->load('student1');
+            $ass->load('student2');
+            $ass->load('answers');
 
-            Mail::send('pdf_mail', $data, function ($message) use ($data, $pdf){
-                $message->to($data["email"], $data["email"])
-                ->subject($data["title"])
-                ->attachData($pdf->output(), "test.pdf");
+            $categories = QuestionCategory::with('questions')->get();
+            $answers = [];
+            foreach ($ass->answers as $answer) {
+                $answers[$answer->question_id] = $answer;
+            }
+
+            $pdf = Pdf::loadView('emails.PDF_form', ['assignment' => $ass, 'answers' => $answers, 'categories' => $categories]);
+
+            Mail::send('emails.PDF_mail', $email_data, function ($message) use ($email_data, $pdf, $ass) {
+                $message->to("arie@windesheim.nl")->subject($email_data['title'])
+                    ->attachData($pdf->output(), "AanmeldingComakership_" . $ass->student1->name . ($ass->student2 ? "_" . $ass->student2->name : '') . ".pdf");
             });
             //Stuur mail naar student met ontvangstbevestiging 
             //Stuur mail naar arie met pdf
@@ -109,13 +118,12 @@ class UserController extends Controller
     public function show(string $id)
     {
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-       
     }
 
     /**
