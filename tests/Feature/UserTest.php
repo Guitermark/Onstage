@@ -33,8 +33,6 @@ class UserTest extends TestCase
             'ec' => '50',
             'modules' => 'Software Development 1',
         ]);
-
-        // $response->assertRedirect('questions/show');
         
         $response->assertStatus(200);
     }

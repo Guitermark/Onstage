@@ -6,23 +6,24 @@
 
 
 <div class="row">
-
   <div class="col-md-8 offset-md-2">
     @if(isset($assignment))
+    <!-- Form voor editing bestaande assignment -->
     <form role="form" method="POST" action="/users/{{$assignment->id}}">
       @method('PUT')
       <input type="hidden" name="edit_key" value="{{Request::get('key')}}">
       @else
+      <!-- Form voor maken van een nieuwe assignment -->
       <form role="form" method="POST" action="/users">
         @endif
         @csrf
         <legend class="text-center">Aanmelding Comakership</legend>
-        <!-- Start van het formulier -->
         <fieldset>
-          <!-- Start studenten gegevens -->
+          <!-- Section Student informatie -->
           <legend>Student gegevens</legend>
           <div class="container">
             <div class="row">
+              <!-- Start gegevens Student 1 -->
               <div class="col">
                 <div class="form-group">
                   <label>Gegevens student 1</label>
@@ -46,8 +47,8 @@
                 </div>
               </div>
               @if(!$graduate)
+              <!-- Start gegevens Student 2  -->
               <div class="col">
-
                 <div class="form-group">
                   <label>Gegevens student 2</label>
                   <br>
@@ -83,6 +84,7 @@
                   <br>
                   <label for="modules">Welke module's staan nog open?</label>
                   <br>
+                  <!-- Checkboxen voor modules -->
                   <div class="form-check">
                     <input data-required="true" class="form-check-input" type="checkbox"
                       id="Project Software Development" name="student_1[modules][project software development]"
@@ -163,6 +165,7 @@
                       2",explode('|', $assignment->student1->modules))) checked @endif>
                     <label class="form-check-label">Project ADSD Laboratorium 2</label>
                   </div>
+                  <!-- conditie checkt of de student een afstudeer comakership formulier invult, dan komen er meer checkboxes bij -->
                   @if($graduate)
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="Product Ownership"
@@ -205,6 +208,7 @@
             </div>
             <!--Einde Drempelcheck student 1 -->
             <!-- Drempelcheck student 2 -->
+            <!-- Conditie checkt of student geen afstudeerder is, dan komt er een tweede student input bij -->
             @if(!$graduate)
             <div class="col">
               <div class="form-group col-md" id="student_2_missing">
@@ -216,6 +220,7 @@
                 <br>
                 <label for="modules">Welke module's staan nog open?</label>
                 <br>
+                <!-- Checkboxen voor modules -->
                 <div class="form-check">
                   <input data-required="true" class="form-check-input" type="checkbox" id="Project Software Development"
                     name="student_2[modules][project software development]" value="project software development"
@@ -305,15 +310,16 @@
   </fieldset>
 
   <fieldset>
-    <!-- Start studenten gegevens -->
+    <!-- Start comakership gegevens -->
     <div id="modular_questions_error" style="display: none">
-      Te weinig studiepunten, helaas pindakaas
+      Te weinig studiepunten behaald, neem contact op met de coördinator
     </div>
 
     <div class="container" id="modular_questions">
       <div class="row">
         <div class="col">
           <div class="form-group">
+            <!-- Modulair gebouwde titels(categorieën) en vragen(description)  -->
             @foreach ($categories as $category)
             <legend>{{$category->description}}</legend>
             @if($category->custom_input == 'competentie')
@@ -326,6 +332,7 @@
                   <td>Niv 3</td>
                 </tr>
               </thead>
+              <!-- Competentie tabel -->
               <tbody>
                 <tr>
                   <td>Analyseren</td>
@@ -377,8 +384,8 @@
             @endif
             @foreach ($category->questions as $question)
             <label for="question-{{$question->id}}">{{$question->description}}</label>
-            {{-- <span class="questionmark"
-              data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Tooltip on right"id="question-{{$question->id}}-tip"> --}}
+            {{-- <span class="questionmark" data-bs-toggle="tooltip" data-bs-placement="right"
+              data-bs-title="Tooltip on right" id="question-{{$question->id}}-tip"> --}}
 
 
               <textarea name="questions[{{$question->id}}]" class="form-control" id="question-{{$question->id}}"
@@ -387,12 +394,11 @@
               <br>
               @endforeach
               @endforeach
-
+              <!-- Einde comakership gegevens -->
           </div>
         </div>
       </div>
     </div>
-    <!-- Einde gegevens studenten -->
   </fieldset>
 
 
