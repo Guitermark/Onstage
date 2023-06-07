@@ -136,7 +136,6 @@ class UserController extends Controller
         $ass->edit_key = null;
         $ass->save();
         foreach ($ass->answers as $answer) {
-            // dump($answer);
             $answer->answer = $request->questions[$answer->question_id];
             $answer->save();
         }
@@ -144,7 +143,6 @@ class UserController extends Controller
         if ($request->submit == 'temp') {
             $ass->edit_key = Str::uuid();
             $ass->save();
-            // dd($ass);
             Mail::to('s1177304@student.windesheim.nl')->send(new tempSave($ass));
         } else {
 
@@ -174,7 +172,6 @@ class UserController extends Controller
         }
 
         return redirect('/');
-        // dd($ass);
     }
 
     /**

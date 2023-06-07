@@ -79,7 +79,7 @@
                   <label>Drempels student 1</label>
                   <br>
                   <label for="ec">Aantal (tot nog toe) behaalde EC's</label>
-                  <input type="ec" class="form-control" name="student_1[ec]" id="ec" placeholder="45"
+                  <input type="ec" class="form-control" name="student_1[ec]" id="ec" placeholder="50"
                     @isset($assignment) value="{{$assignment->student1->ec}}" @endisset>
                   <br>
                   <label for="modules">Welke module's staan nog open?</label>
@@ -215,7 +215,7 @@
                 <label>Drempels student 2</label>
                 <br>
                 <label for="ec">Aantal (tot nog toe) behaalde EC's</label>
-                <input type="ec" class="form-control" name="student_2[ec]" id="ec" placeholder="45" @isset($assignment)
+                <input type="ec" class="form-control" name="student_2[ec]" id="ec" placeholder="50" @isset($assignment)
                   value="{{$assignment->student2->ec}}" @endisset>
                 <br>
                 <label for="modules">Welke module's staan nog open?</label>

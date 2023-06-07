@@ -30,7 +30,7 @@ class QuestionsSeeder extends Seeder
             'description' => 'Postcode',
             'question_category_id' => '1'
         ], [
-            'description' => 'Korte beschrijving van het bedrijf: klanten, producten en organisatiestructuur',
+            'description' => 'Geef een korte beschrijving van het bedrijf: klanten, producten en organisatiestructuur',
             'question_category_id' => '1'
         ], [
             'description' => 'Op welke afdeling ga je werken?',
@@ -42,7 +42,7 @@ class QuestionsSeeder extends Seeder
             'description' => 'Kun je aangeven met wie je hebt gesproken tijdens de opdrachtbriefing/intake, inclusief hun naam, contactgegevens en rol/functie?',
             'question_category_id' => '1'
         ], [
-            'description' => 'Kun je aangeven wie je zal begeleiden gedurende het CoMakership-traject, inclusief hun naam, contactgegevens en rol/functie?',
+            'description' => 'Kun je aangeven wie je zal begeleiden gedurende het Comakership-traject, inclusief hun naam, contactgegevens en rol/functie?',
             'question_category_id' => '1'
         ], [
             'description' => 'Welke expertise is er beschikbaar binnen de organisatie voor zowel inhoudelijke begeleiding als beoordeling?',
@@ -81,7 +81,7 @@ class QuestionsSeeder extends Seeder
             'description' => 'In hoeverre is de omvang van de opdracht afgestemd op het aantal ECs?',
             'question_category_id' => '3'
         ],  [
-            'description' => 'Is de opdracht zodanig afgebankend dat je een duidelijk individueel meetbaar aandeel hebt? Licht toe',
+            'description' => 'Is de opdracht zodanig afgebakend dat je een duidelijk individueel meetbaar aandeel hebt? Licht toe',
             'question_category_id' => '3'
         ],  [
             'description' => 'Bevat de opdracht een substantieel onderzoeksdeel? Zo ja, wat is de omvang van het onderzoek t.o.v. de rest van de opdracht?',
@@ -118,6 +118,5 @@ class QuestionsSeeder extends Seeder
             'question_category_id' => '5'
         ]
         ]);
-        // Question::factory(10)->create();
     }
 }
